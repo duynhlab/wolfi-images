@@ -78,7 +78,7 @@ jobs:
 
       - if: steps.vars.outputs.registry == 'ghcr.io'
         name: Login to GitHub Registry
-        uses: docker/login-action@c99871dec2022cc055c062a10cc1a1310835ceb4 #v4.3.0
+        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 #v4.4.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -92,7 +92,7 @@ jobs:
 
       - name: Publish image
         id: apko
-        uses: distroless/actions/apko-publish@ff45c3434429aff735fdda0b5afbb57b14002be5 #v1.0.34
+        uses: distroless/actions/apko-publish@ce715ff156f55cfbd242bb358b5151a9bc50332a #v1.0.35
         with:
           config: ${{ inputs.config-dir }}/${{ inputs.target }}.yaml
           tag: ${{ steps.vars.outputs.image }}
@@ -127,7 +127,7 @@ jobs:
 
       - name: Upload scan results to code scanning
         if: inputs.scan == 'true' && steps.vars.outputs.registry == 'ghcr.io'
-        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e #v4.36.2
+        uses: github/codeql-action/upload-sarif@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a #v4.36.3
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
           category: ${{ github.workflow }}-${{ inputs.tag }}
