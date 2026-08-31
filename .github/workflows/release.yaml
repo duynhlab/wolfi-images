@@ -118,7 +118,7 @@ jobs:
       - name: Scan image for vulnerabilities
         if: inputs.scan == 'true'
         id: scan
-        uses: anchore/scan-action@e1165082ffb1fe366ebaf02d8526e7c4989ea9d2 #v7.4.0
+        uses: anchore/scan-action@27805bf3b4e84b4a5c980df22ed233c00390a439 #v7.4.2
         with:
           image: ${{ steps.vars.outputs.registry }}/${{ inputs.repository }}@${{ steps.digest.outputs.digest }}
           output-format: sarif
@@ -127,7 +127,7 @@ jobs:
 
       - name: Upload scan results to code scanning
         if: inputs.scan == 'true' && steps.vars.outputs.registry == 'ghcr.io'
-        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 #v4.37.6
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 #v4.37.9
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
           category: ${{ github.workflow }}-${{ inputs.tag }}
